@@ -25,7 +25,7 @@ public class Coin : MonoBehaviour {
         if (other.gameObject.tag.Equals("Player"))
         {
             PlayerControl player = other.gameObject.GetComponent<PlayerControl>();
-            GameControl.cash += 100;
+
             player.Cash += money;
             Destroy(gameObject);
         }

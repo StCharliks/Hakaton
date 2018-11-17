@@ -72,8 +72,6 @@ public class PlayerControl : MonoBehaviour {
             Instantiate(bullet, gun.transform.position, gun.transform.rotation);
         }
 
-
-
         if (HP <= 0)
 		{
 			GameControl.playerDead = true;
@@ -91,7 +89,7 @@ public class PlayerControl : MonoBehaviour {
 
         for (int i = 0; i < numOfCoins; i++)
         {
-            Instantiate(coin, tank.transform.position, Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360f) ));
+            Instantiate(coin, tank.transform.position, Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360f)));
         }
     }
 }
