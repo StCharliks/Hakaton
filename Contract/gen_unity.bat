@@ -1,0 +1,1 @@
+pravda gen unity -i CryptoBattleProgram.pravda

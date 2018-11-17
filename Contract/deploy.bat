@@ -1,0 +1,1 @@
+pravda broadcast deploy -w my-wallet.json -p program-wallet.json -l 300000 -P 1 -i CryptoBattleProgram.pravda
