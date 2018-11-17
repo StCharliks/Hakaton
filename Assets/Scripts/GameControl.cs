@@ -50,8 +50,18 @@ public class GameControl : MonoBehaviour {
         earnedMoney.text = "Balance: " + cash.ToString();
     }
 
+    void OnKeyPressed()
+    {
+        Debug.Log("B is pressed");
+    }
+
 	void Update() 
 	{
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            OnKeyPressed();
+        }
+
         earnedMoney.text = "Balance: " + player.Cash.ToString();
         Debug.Log(string.Format("Player: {0}", player.Cash));
         if (playerDead)
