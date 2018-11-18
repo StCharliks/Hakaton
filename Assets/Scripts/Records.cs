@@ -7,15 +7,15 @@ using UnityEngine.SceneManagement;
 public class Records : MonoBehaviour
 {
 
-    public Text ScoresBoard;
+    //public Text ScoresBoard;
 
     void Start ()
     {
-        ScoresBoard.text = "";
+        /*ScoresBoard.text = "";
         for (int i = 0; i < ButtonManager.recordTable.Count; i++)
         {
             ScoresBoard.text = ScoresBoard.text + ButtonManager.recordTable[i].Name + ' ' + ButtonManager.recordTable[i].Score + "\n";
-        }
+        }*/
     }
 
   //  List<String> data = File.ReadAllLines(pfad + datei)
