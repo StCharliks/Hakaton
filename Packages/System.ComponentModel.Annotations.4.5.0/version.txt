@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-30ab651fcb4354552bd4891619a0bdd81e0ebdbf
-=======
-30ab651fcb4354552bd4891619a0bdd81e0ebdbf
->>>>>>> master
