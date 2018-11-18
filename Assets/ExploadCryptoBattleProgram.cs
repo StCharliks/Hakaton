@@ -4,9 +4,9 @@ using Expload.Unity.Codegen;
 
 namespace Expload.Pravda.ExploadCryptoBattleProgram
 {
-    public class CreateArtifactRequest: ProgramRequest<int>
+    public class CreateArtefactRequest: ProgramRequest<int>
     {
-        public CreateArtifactRequest(byte[] programAddress) : base(programAddress) { }
+        public CreateArtefactRequest(byte[] programAddress) : base(programAddress) { }
 
         protected override int ParseResult(string elem)
         {
@@ -15,19 +15,71 @@ namespace Expload.Pravda.ExploadCryptoBattleProgram
 
         public IEnumerator Test(byte[] arg0)
         {
-            yield return SendRequest("CreateArtifact", new string[] { ExploadTypeConverters.PrintBytes(arg0) }, true);
+            yield return SendRequest("CreateArtefact", new string[] { ExploadTypeConverters.PrintBytes(arg0) }, true);
         }
 
         public IEnumerator Call(byte[] arg0)
         {
-            yield return SendRequest("CreateArtifact", new string[] { ExploadTypeConverters.PrintBytes(arg0) }, false);
+            yield return SendRequest("CreateArtefact", new string[] { ExploadTypeConverters.PrintBytes(arg0) }, false);
         }
 
         // Same as Call
         // Deprecated
-        public IEnumerator CreateArtifact(byte[] arg0)
+        public IEnumerator CreateArtefact(byte[] arg0)
         {
-            yield return SendRequest("CreateArtifact", new string[] { ExploadTypeConverters.PrintBytes(arg0) }, false);
+            yield return SendRequest("CreateArtefact", new string[] { ExploadTypeConverters.PrintBytes(arg0) }, false);
+        }
+    }
+    public class GetArtefactAtPosRequest: ProgramRequest<int>
+    {
+        public GetArtefactAtPosRequest(byte[] programAddress) : base(programAddress) { }
+
+        protected override int ParseResult(string elem)
+        {
+            return ExploadTypeConverters.ParseInt32(elem);
+        }
+
+        public IEnumerator Test(byte[] arg0, int arg1)
+        {
+            yield return SendRequest("GetArtefactAtPos", new string[] { ExploadTypeConverters.PrintBytes(arg0), ExploadTypeConverters.PrintInt32(arg1) }, true);
+        }
+
+        public IEnumerator Call(byte[] arg0, int arg1)
+        {
+            yield return SendRequest("GetArtefactAtPos", new string[] { ExploadTypeConverters.PrintBytes(arg0), ExploadTypeConverters.PrintInt32(arg1) }, false);
+        }
+
+        // Same as Call
+        // Deprecated
+        public IEnumerator GetArtefactAtPos(byte[] arg0, int arg1)
+        {
+            yield return SendRequest("GetArtefactAtPos", new string[] { ExploadTypeConverters.PrintBytes(arg0), ExploadTypeConverters.PrintInt32(arg1) }, false);
+        }
+    }
+    public class GetArtefactsRequest: ProgramRequest<string>
+    {
+        public GetArtefactsRequest(byte[] programAddress) : base(programAddress) { }
+
+        protected override string ParseResult(string elem)
+        {
+            return ExploadTypeConverters.ParseUtf8(elem);
+        }
+
+        public IEnumerator Test(byte[] arg0)
+        {
+            yield return SendRequest("GetArtefacts", new string[] { ExploadTypeConverters.PrintBytes(arg0) }, true);
+        }
+
+        public IEnumerator Call(byte[] arg0)
+        {
+            yield return SendRequest("GetArtefacts", new string[] { ExploadTypeConverters.PrintBytes(arg0) }, false);
+        }
+
+        // Same as Call
+        // Deprecated
+        public IEnumerator GetArtefacts(byte[] arg0)
+        {
+            yield return SendRequest("GetArtefacts", new string[] { ExploadTypeConverters.PrintBytes(arg0) }, false);
         }
     }
     public class GetBalanceOfRequest: ProgramRequest<int>
@@ -56,13 +108,13 @@ namespace Expload.Pravda.ExploadCryptoBattleProgram
             yield return SendRequest("GetBalanceOf", new string[] { ExploadTypeConverters.PrintBytes(arg0) }, false);
         }
     }
-    public class GetOwnerRequest: ProgramRequest<string>
+    public class GetOwnerRequest: ProgramRequest<byte[]>
     {
         public GetOwnerRequest(byte[] programAddress) : base(programAddress) { }
 
-        protected override string ParseResult(string elem)
+        protected override byte[] ParseResult(string elem)
         {
-            return ExploadTypeConverters.ParseUtf8(elem);
+            return ExploadTypeConverters.ParseBytes(elem);
         }
 
         public IEnumerator Test(int arg0)
@@ -82,13 +134,13 @@ namespace Expload.Pravda.ExploadCryptoBattleProgram
             yield return SendRequest("GetOwner", new string[] { ExploadTypeConverters.PrintInt32(arg0) }, false);
         }
     }
-    public class GetServerAddressRequest: ProgramRequest<string>
+    public class GetServerAddressRequest: ProgramRequest<byte[]>
     {
         public GetServerAddressRequest(byte[] programAddress) : base(programAddress) { }
 
-        protected override string ParseResult(string elem)
+        protected override byte[] ParseResult(string elem)
         {
-            return ExploadTypeConverters.ParseUtf8(elem);
+            return ExploadTypeConverters.ParseBytes(elem);
         }
 
         public IEnumerator Test()
@@ -108,30 +160,30 @@ namespace Expload.Pravda.ExploadCryptoBattleProgram
             yield return SendRequest("GetServerAddress", new string[] {  }, false);
         }
     }
-    public class TransferArtifactRequest: ProgramRequest<bool>
+    public class TransferArtefactRequest: ProgramRequest<object>
     {
-        public TransferArtifactRequest(byte[] programAddress) : base(programAddress) { }
+        public TransferArtefactRequest(byte[] programAddress) : base(programAddress) { }
 
-        protected override bool ParseResult(string elem)
+        protected override object ParseResult(string elem)
         {
-            return ExploadTypeConverters.ParseBool(elem);
+            return ExploadTypeConverters.ParseNull(elem);
         }
 
-        public IEnumerator Test(byte[] arg0, byte[] arg1, int arg2)
+        public IEnumerator Test(int arg0, byte[] arg1)
         {
-            yield return SendRequest("TransferArtifact", new string[] { ExploadTypeConverters.PrintBytes(arg0), ExploadTypeConverters.PrintBytes(arg1), ExploadTypeConverters.PrintInt32(arg2) }, true);
+            yield return SendRequest("TransferArtefact", new string[] { ExploadTypeConverters.PrintInt32(arg0), ExploadTypeConverters.PrintBytes(arg1) }, true);
         }
 
-        public IEnumerator Call(byte[] arg0, byte[] arg1, int arg2)
+        public IEnumerator Call(int arg0, byte[] arg1)
         {
-            yield return SendRequest("TransferArtifact", new string[] { ExploadTypeConverters.PrintBytes(arg0), ExploadTypeConverters.PrintBytes(arg1), ExploadTypeConverters.PrintInt32(arg2) }, false);
+            yield return SendRequest("TransferArtefact", new string[] { ExploadTypeConverters.PrintInt32(arg0), ExploadTypeConverters.PrintBytes(arg1) }, false);
         }
 
         // Same as Call
         // Deprecated
-        public IEnumerator TransferArtifact(byte[] arg0, byte[] arg1, int arg2)
+        public IEnumerator TransferArtefact(int arg0, byte[] arg1)
         {
-            yield return SendRequest("TransferArtifact", new string[] { ExploadTypeConverters.PrintBytes(arg0), ExploadTypeConverters.PrintBytes(arg1), ExploadTypeConverters.PrintInt32(arg2) }, false);
+            yield return SendRequest("TransferArtefact", new string[] { ExploadTypeConverters.PrintInt32(arg0), ExploadTypeConverters.PrintBytes(arg1) }, false);
         }
     }
 }
