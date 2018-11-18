@@ -3,26 +3,17 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Scripts;
 
 public class ButtonManager : MonoBehaviour
 {
-
-    public struct PlayerInfo
-    {
-        public string Name;
-        public int Score;
-    }
-    public static List<PlayerInfo> recordTable = new List<PlayerInfo>();
-
-    PlayerInfo entry = new PlayerInfo();
     public static string Username;
-    
 
-    public void NewGameButton(string Game)
+    public void NewGameButton(string scene)
     {
         GameControl.level = 0;
         GameControl.score = 0;
-        SceneManager.LoadScene(Game, LoadSceneMode.Single);
+        SceneManager.LoadScene(scene, LoadSceneMode.Single);
     }
 
     public void ExitButton()
@@ -30,22 +21,24 @@ public class ButtonManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void ToMainMenuButton(string MainMenu)
+    /*public void Button()
     {
-        SceneManager.LoadScene(MainMenu, LoadSceneMode.Single);
+        Inventory.AddItem(new Item());
+    }*/
+
+    public void ToMainMenuButton(string scene)
+    {
+        SceneManager.LoadScene(scene, LoadSceneMode.Single);
     }
 
-    public void RecordsFromMenuButton(string RecordsScene)
+    public void InventoryButton(string scene)
     {
-        SceneManager.LoadScene(RecordsScene, LoadSceneMode.Single);
+        SceneManager.LoadScene(scene, LoadSceneMode.Single);
     }
 
-    public void RecordsButton(string RecordsScene)
+    public void MarketButton(string scene)
     {
-        entry.Name = Username;
-        entry.Score = GameControl.score;
-        recordTable.Add(entry);
-        SceneManager.LoadScene(RecordsScene, LoadSceneMode.Single);
+        SceneManager.LoadScene(scene, LoadSceneMode.Single);
     }
 
 }

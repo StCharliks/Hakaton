@@ -50,20 +50,11 @@ public class GameControl : MonoBehaviour {
         earnedMoney.text = "Balance: " + cash.ToString();
     }
 
-    void OnKeyPressed()
-    {
-        Debug.Log("B is pressed");
-    }
-
 	void Update() 
 	{
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            OnKeyPressed();
-        }
-
-        earnedMoney.text = "Balance: " + player.Cash.ToString();
-        Debug.Log(string.Format("Player: {0}", player.Cash));
+        RandomInstanciateCoin();
+        earnedMoney.text = "Balance: " + cash.ToString();
+        Debug.Log(string.Format("Player: {0}",cash));
         if (playerDead)
 		{
             playerDead = false;
@@ -71,4 +62,12 @@ public class GameControl : MonoBehaviour {
             //SceneManager.LoadScene("FillName", LoadSceneMode.Single);
         }
 	}
+
+    private void RandomInstanciateCoin()
+    {
+        if (Random.Range(0, 100) > 80)
+        {
+            //Instantiate(new Coin(50), new Vector3(new System.Random().Next(10, 100), new System.Random().Next(10, 100), -10), Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360f)));
+        }
+    }
 }

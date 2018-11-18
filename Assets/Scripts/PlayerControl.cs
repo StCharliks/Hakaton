@@ -5,6 +5,7 @@ using System;
 
 public class PlayerControl : MonoBehaviour {
 
+    public GameControl gc;
 	public int HP = 2;
 	public Transform explosion;
 	public float speed = 2f;
@@ -55,6 +56,8 @@ public class PlayerControl : MonoBehaviour {
         }
     }
 
+
+
     void Update() 
 	{
         Debug.Log(Cash);
@@ -80,6 +83,7 @@ public class PlayerControl : MonoBehaviour {
 			float randomZ = UnityEngine.Random.Range(0, 360f);
 			Instantiate(explosion, transform.position, Quaternion.Euler(0, 0, randomZ));
             DropCoins();
+            GameControl.cash = Cash = 0;
 			Destroy(gameObject);
 		}
 	}
@@ -91,6 +95,7 @@ public class PlayerControl : MonoBehaviour {
 
         for (int i = 0; i < numOfCoins; i++)
         {
+            coin.GetComponent<Coin>().money = rnd.Next(10, 100);
             Instantiate(coin, tank.transform.position, Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360f) ));
         }
     }
