@@ -223,54 +223,54 @@ namespace Expload.Unity.Codegen
 
         protected IEnumerator SendRequest(string method, string[] args, bool test)
         {
-             var request = new ExploadMethodRequest(BitConverter.ToString(ProgramAddress).Replace("-", ""), method, args);
-             string json = JsonConvert.SerializeObject(request);
+            var request = new ExploadMethodRequest(BitConverter.ToString(ProgramAddress).Replace("-", ""), method, args);
+            string json = JsonConvert.SerializeObject(request);
 
-             string uri = "";
-             if (test) {
-                 uri = "localhost:8087/api/program/method-test";
-             } else {
-                 uri = "localhost:8087/api/program/method";
-             }
+            string uri = "";
+            if (test) {
+                uri = "localhost:8087/api/program/method-test";
+            } else {
+                uri = "localhost:8087/api/program/method";
+            }
 
-             UnityWebRequest www = UnityWebRequest.Put(uri, json);
-             www.method = "POST";
-             www.SetRequestHeader("Content-Type", "application/json");
+            UnityWebRequest www = UnityWebRequest.Put(uri, json);
+            www.method = "POST";
+            www.SetRequestHeader("Content-Type", "application/json");
 
-             yield return www.SendWebRequest();
+            yield return www.SendWebRequest();
 
-             if (www.isNetworkError || www.isHttpError)
-             {
-                 IsError = true;
-                 Error = www.error + "\nHttp code: " + www.responseCode + "\nText: " + www.downloadHandler.text;
-             }
-             else
-             {
-                 try
-                 {
-                     var response = JsonConvert.DeserializeObject<ExploadResponse>(www.downloadHandler.text);
-                     TransactionId = response.transactionId;
-                     if (response.error.Length != 0) {
-                         IsError = true;
-                         Error = "Error from response: " + response.error;
-                     } else if (response.data.finalState.stack.Length > 1) {
-                         IsError = true;
-                         Error = "Invalid method result:\n[" + String.Join(", ", response.data.finalState.stack) + "]";
-                     } else if (response.data.finalState.stack.Length == 1) {
-                         Result = ParseResult(response.data.finalState.stack[0]);
-                     }
-                 }
-                 catch (JsonSerializationException e)
-                 {
-                     IsError = true;
-                     Error = "Invalid JSON:\n" + www.downloadHandler.text + "\nError: " + e.Message;
-                 }
-                 catch (ArgumentException e)
-                 {
-                     IsError = true;
-                     Error = "Invalid JSON:\n" + www.downloadHandler.text + "\nError: " + e.Message;
-                 }
-             }
+            if (www.isNetworkError || www.isHttpError)
+            {
+                IsError = true;
+                Error = www.error + "\nHttp code: " + www.responseCode + "\nText: " + www.downloadHandler.text;
+            }
+            else
+            {
+                try
+                {
+                    var response = JsonConvert.DeserializeObject<ExploadResponse>(www.downloadHandler.text);
+		            TransactionId = response.transactionId;
+                    if (response.error.Length != 0) {
+                        IsError = true;
+                        Error = "Error from response: " + response.error;
+                    } else if (response.data.finalState.stack.Length > 1) {
+                        IsError = true;
+                        Error = "Invalid method result:\n[" + String.Join(", ", response.data.finalState.stack) + "]";
+                    } else if (response.data.finalState.stack.Length == 1) {
+                        Result = ParseResult(response.data.finalState.stack[0]);
+                    }
+                }
+                catch (JsonSerializationException e)
+                {
+                    IsError = true;
+                    Error = "Invalid JSON:\n" + www.downloadHandler.text + "\nError: " + e.Message;
+                }
+                catch (ArgumentException e)
+                {
+                    IsError = true;
+                    Error = "Invalid JSON:\n" + www.downloadHandler.text + "\nError: " + e.Message;
+                }
+            }
         }
     }
 }

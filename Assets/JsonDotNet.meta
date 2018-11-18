@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 361d84085d51e6246b7028d695f5aa47
+<<<<<<< HEAD:Assets/Images.meta
+guid: 491d6f57739bcd84aa1eb08fcde40bb1
+=======
+guid: 5e1d0414bdbe8004cb2a4c98d118d89d
+>>>>>>> master:Assets/JsonDotNet.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

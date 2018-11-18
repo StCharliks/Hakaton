@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Extensions;
 using System.Linq;
 using System;

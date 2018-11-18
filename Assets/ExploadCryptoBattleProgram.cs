@@ -56,13 +56,13 @@ namespace Expload.Pravda.ExploadCryptoBattleProgram
             yield return SendRequest("GetBalanceOf", new string[] { ExploadTypeConverters.PrintBytes(arg0) }, false);
         }
     }
-    public class GetOwnerRequest: ProgramRequest<byte[]>
+    public class GetOwnerRequest: ProgramRequest<string>
     {
         public GetOwnerRequest(byte[] programAddress) : base(programAddress) { }
 
-        protected override byte[] ParseResult(string elem)
+        protected override string ParseResult(string elem)
         {
-            return ExploadTypeConverters.ParseBytes(elem);
+            return ExploadTypeConverters.ParseUtf8(elem);
         }
 
         public IEnumerator Test(int arg0)
@@ -82,13 +82,39 @@ namespace Expload.Pravda.ExploadCryptoBattleProgram
             yield return SendRequest("GetOwner", new string[] { ExploadTypeConverters.PrintInt32(arg0) }, false);
         }
     }
-    public class TransferArtifactRequest: ProgramRequest<object>
+    public class GetServerAddressRequest: ProgramRequest<string>
+    {
+        public GetServerAddressRequest(byte[] programAddress) : base(programAddress) { }
+
+        protected override string ParseResult(string elem)
+        {
+            return ExploadTypeConverters.ParseUtf8(elem);
+        }
+
+        public IEnumerator Test()
+        {
+            yield return SendRequest("GetServerAddress", new string[] {  }, true);
+        }
+
+        public IEnumerator Call()
+        {
+            yield return SendRequest("GetServerAddress", new string[] {  }, false);
+        }
+
+        // Same as Call
+        // Deprecated
+        public IEnumerator GetServerAddress()
+        {
+            yield return SendRequest("GetServerAddress", new string[] {  }, false);
+        }
+    }
+    public class TransferArtifactRequest: ProgramRequest<bool>
     {
         public TransferArtifactRequest(byte[] programAddress) : base(programAddress) { }
 
-        protected override object ParseResult(string elem)
+        protected override bool ParseResult(string elem)
         {
-            return ExploadTypeConverters.ParseNull(elem);
+            return ExploadTypeConverters.ParseBool(elem);
         }
 
         public IEnumerator Test(byte[] arg0, byte[] arg1, int arg2)
