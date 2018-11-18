@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Extensions;
 using System.Linq;
 using System;
-using Expload.Pravda.ExploadCryptoBattleProgram;
 
 public class PlayerControl : MonoBehaviour {
 
+    public GameControl gc;
 	public int HP = 2;
 	public Transform explosion;
 	public float speed = 2f;
@@ -56,8 +56,10 @@ public class PlayerControl : MonoBehaviour {
         }
     }
 
-    void Update()
-    {
+
+
+    void Update() 
+	{
         Debug.Log(Cash);
         //DropCoins();
         body.MovePosition(transform.position + transform.up * Time.deltaTime * speed);
@@ -73,12 +75,15 @@ public class PlayerControl : MonoBehaviour {
             Instantiate(bullet, gun.transform.position, gun.transform.rotation);
         }
 
+
+
         if (HP <= 0)
 		{
 			GameControl.playerDead = true;
 			float randomZ = UnityEngine.Random.Range(0, 360f);
 			Instantiate(explosion, transform.position, Quaternion.Euler(0, 0, randomZ));
             DropCoins();
+            GameControl.cash = Cash = 0;
 			Destroy(gameObject);
 		}
 	}
@@ -90,7 +95,8 @@ public class PlayerControl : MonoBehaviour {
 
         for (int i = 0; i < numOfCoins; i++)
         {
-            Instantiate(coin, tank.transform.position, Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360f)));
+            coin.GetComponent<Coin>().money = rnd.Next(10, 100);
+            Instantiate(coin, tank.transform.position, Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360f) ));
         }
     }
 }
