@@ -2,6 +2,7 @@
 using Extensions;
 using System.Linq;
 using System;
+using Expload.Pravda.ExploadCryptoBattleProgram;
 
 public class PlayerControl : MonoBehaviour {
 
@@ -55,8 +56,8 @@ public class PlayerControl : MonoBehaviour {
         }
     }
 
-    void Update() 
-	{
+    void Update()
+    {
         Debug.Log(Cash);
         //DropCoins();
         body.MovePosition(transform.position + transform.up * Time.deltaTime * speed);

@@ -1,1 +1,0 @@
-pravda compile asm -i q.asm | pravda broadcast run -w my-wallet.json -l 1000

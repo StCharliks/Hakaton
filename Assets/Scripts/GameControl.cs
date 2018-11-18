@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
+using System.Globalization;
+using Expload.Pravda.ExploadCryptoBattleProgram;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour {
-
     public static readonly string[] levels = {"Game", "Level2", "Level3", "FillName"};
     public static int level = 0;
     public static bool playerDead;
@@ -52,7 +54,19 @@ public class GameControl : MonoBehaviour {
 
     void OnKeyPressed()
     {
-        Debug.Log("B is pressed");
+        var address = Utils.ConvertHexStringToByteArray("d3dcbb39c14c06eea895acbf7bc4ae7450c5906be6c97d06090b2d7a1e698392");
+        var req = new CreateArtifactRequest(address);
+
+        Debug.Log(req.TransactionId);
+
+        if (req.IsError)
+        {
+            Debug.LogError(req.Error);
+        }
+        else
+        {
+            Debug.Log(req.Result);
+        }
     }
 
 	void Update() 
