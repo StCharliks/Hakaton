@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Globalization;
 using Expload.Pravda.ExploadCryptoBattleProgram;
+using Expload.Unity.Codegen;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -52,29 +53,82 @@ public class GameControl : MonoBehaviour {
         earnedMoney.text = "Balance: " + cash.ToString();
     }
 
-    void OnKeyPressed()
+
+
+    IEnumerator OnKeyPressed(int command)
     {
-        var address = Utils.ConvertHexStringToByteArray("d3dcbb39c14c06eea895acbf7bc4ae7450c5906be6c97d06090b2d7a1e698392");
-        var req = new CreateArtifactRequest(address);
+        var address = Utils.ConvertHexStringToByteArray("d49861052c87e021e04a21b0e99345edfb669d5ad6e05e7b2c3dc5bb8793ecee");
+        var param1 =
+            Utils.ConvertHexStringToByteArray("3b8b7459b5072e6006bbcb4fd8808d9cd916a3a729dd03dfa7eae8f84883e57a");
 
+        var param2 =
+            Utils.ConvertHexStringToByteArray("edb4fe9c21fe2e53c2168234d79fd30100ddd8447bd6f4c78e52f0dee35286aa");
+        //it works: return int
+        //var req = new GetBalanceOfRequest(address);
+        //yield return req.GetBalanceOf(param1);
+
+        switch (command)
+        {
+            case 1:
+                //it works: return int
+                //Добавляется новый артефакт адресу, возвращается Id артефакта
+                var req1 = new CreateArtifactRequest(address);
+                yield return req1.CreateArtifact(param1);
+                HandleResult(req1);
+                break;
+            case 2:
+                var req2 = new TransferArtifactRequest(address);
+                yield return req2.TransferArtifact(param1, param2, 2);
+                HandleResult(req2);
+                break;
+            case 3:
+                //it works: return byte[]
+                var req3 = new GetOwnerRequest(address);
+                yield return req3.GetOwner(1);
+                HandleResult(req3);
+                break;
+            case 4:
+                var req4 = new GetServerAddressRequest(address);
+                yield return req4.GetServerAddress();
+                HandleResult(req4);
+                break;
+            default:
+                break;
+        }
+    }
+
+    void HandleResult<T>(ProgramRequest<T> req)
+    {
         Debug.Log(req.TransactionId);
-
         if (req.IsError)
         {
             Debug.LogError(req.Error);
         }
         else
         {
-            Debug.Log(req.Result);
+            //string hex = BitConverter.ToString((byte[])(object)req.Result);
+            Debug.LogError("Success: " + req.Result);
         }
     }
 
-	void Update() 
+    void Update() 
 	{
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            OnKeyPressed();
+            var result = StartCoroutine(OnKeyPressed(1));
         }
+	    if (Input.GetKeyDown(KeyCode.X))
+	    {
+	        var result = StartCoroutine(OnKeyPressed(2));
+	    }
+	    if (Input.GetKeyDown(KeyCode.C))
+	    {
+	        var result = StartCoroutine(OnKeyPressed(3));
+	    }
+	    if (Input.GetKeyDown(KeyCode.V))
+	    {
+	        var result = StartCoroutine(OnKeyPressed(4));
+	    }
 
         earnedMoney.text = "Balance: " + player.Cash.ToString();
         Debug.Log(string.Format("Player: {0}", player.Cash));
